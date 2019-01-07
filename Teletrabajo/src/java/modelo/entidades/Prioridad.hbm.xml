@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-dic-2018 16:06:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.entidades.Prioridad" table="prioridad" catalog="teletrabajo" optimistic-lock="version">
+        <id name="idPrioridad" type="java.lang.Integer">
+            <column name="idPrioridad" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <set name="requisitos" table="requisito" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idPrioridad" not-null="true" />
+            </key>
+            <one-to-many class="modelo.entidades.Requisito" />
+        </set>
+    </class>
+</hibernate-mapping>

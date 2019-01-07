@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-dic-2018 16:06:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.entidades.RolUsuarioProyecto" table="rol_usuario_proyecto" catalog="teletrabajo" optimistic-lock="version">
+        <composite-id name="id" class="modelo.entidades.RolUsuarioProyectoId">
+            <key-property name="idRol" type="int">
+                <column name="idRol" />
+            </key-property>
+            <key-property name="idUsuario" type="int">
+                <column name="idUsuario" />
+            </key-property>
+            <key-property name="idProyecto" type="int">
+                <column name="idProyecto" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="proyecto" class="modelo.entidades.Proyecto" update="false" insert="false" fetch="select">
+            <column name="idProyecto" not-null="true" />
+        </many-to-one>
+        <many-to-one name="rol" class="modelo.entidades.Rol" update="false" insert="false" fetch="select">
+            <column name="idRol" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="modelo.entidades.Usuario" update="false" insert="false" fetch="select">
+            <column name="idUsuario" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

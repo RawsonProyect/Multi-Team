@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-dic-2018 16:06:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.entidades.Tarea" table="tarea" catalog="teletrabajo" optimistic-lock="version">
+        <id name="idTarea" type="java.lang.Integer">
+            <column name="idTarea" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="requisito" class="modelo.entidades.Requisito" fetch="select">
+            <column name="idRequisito" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tarea" class="modelo.entidades.Tarea" fetch="select">
+            <column name="idTareaPadre" />
+        </many-to-one>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="250" not-null="true" />
+        </property>
+        <property name="fip" type="timestamp">
+            <column name="fip" length="19" />
+        </property>
+        <property name="ffp" type="timestamp">
+            <column name="ffp" length="19" />
+        </property>
+        <property name="fir" type="timestamp">
+            <column name="fir" length="19" />
+        </property>
+        <property name="ffr" type="timestamp">
+            <column name="ffr" length="19" />
+        </property>
+        <set name="tareas" table="tarea" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idTareaPadre" />
+            </key>
+            <one-to-many class="modelo.entidades.Tarea" />
+        </set>
+        <set name="informes" table="tarea_informe" inverse="false" lazy="false" fetch="select">
+            <key>
+                <column name="idTarea" not-null="true" />
+            </key>
+            <many-to-many entity-name="modelo.entidades.Informe">
+                <column name="idInforme" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="alertas" table="alerta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idTarea" not-null="true" />
+            </key>
+            <one-to-many class="modelo.entidades.Alerta" />
+        </set>
+        <set name="usuarios" table="tarea_usuario" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="idTarea" not-null="true" />
+            </key>
+            <many-to-many entity-name="modelo.entidades.Usuario">
+                <column name="idUsuario" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

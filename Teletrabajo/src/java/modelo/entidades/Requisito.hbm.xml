@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-dic-2018 16:06:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.entidades.Requisito" table="requisito" catalog="teletrabajo" optimistic-lock="version">
+        <id name="idRequisito" type="java.lang.Integer">
+            <column name="idRequisito" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="prioridad" class="modelo.entidades.Prioridad" fetch="select">
+            <column name="idPrioridad" not-null="true" />
+        </many-to-one>
+        <many-to-one name="proyecto" class="modelo.entidades.Proyecto" fetch="select">
+            <column name="idProyecto" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="modelo.entidades.Usuario" fetch="select">
+            <column name="idUsuario" not-null="true" />
+        </many-to-one>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="19" not-null="true" />
+        </property>
+        <property name="esIncidencia" type="boolean">
+            <column name="esIncidencia" not-null="true" />
+        </property>
+        <property name="finalizado" type="boolean">
+            <column name="finalizado" not-null="true" />
+        </property>
+        <property name="ruta" type="string">
+            <column name="ruta" />
+        </property>
+        <set name="tareas" table="tarea" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idRequisito" not-null="true" />
+            </key>
+            <one-to-many class="modelo.entidades.Tarea" />
+        </set>
+    </class>
+</hibernate-mapping>

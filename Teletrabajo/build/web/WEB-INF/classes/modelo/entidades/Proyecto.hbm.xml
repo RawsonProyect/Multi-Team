@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-dic-2018 16:06:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.entidades.Proyecto" table="proyecto" catalog="teletrabajo" optimistic-lock="version">
+        <id name="idProyecto" type="java.lang.Integer">
+            <column name="idProyecto" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cliente" class="modelo.entidades.Cliente" fetch="select">
+            <column name="idCliente" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="fip" type="timestamp">
+            <column name="fip" length="19" />
+        </property>
+        <property name="ffp" type="timestamp">
+            <column name="ffp" length="19" />
+        </property>
+        <property name="fir" type="timestamp">
+            <column name="fir" length="19" />
+        </property>
+        <property name="ffr" type="timestamp">
+            <column name="ffr" length="19" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+        <set name="requisitos" table="requisito" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idProyecto" not-null="true" />
+            </key>
+            <one-to-many class="modelo.entidades.Requisito" />
+        </set>
+        <set name="archivos" table="archivo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idProyecto" not-null="true" />
+            </key>
+            <one-to-many class="modelo.entidades.Archivo" />
+        </set>
+        <set name="rolUsuarioProyectos" table="rol_usuario_proyecto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idProyecto" not-null="true" />
+            </key>
+            <one-to-many class="modelo.entidades.RolUsuarioProyecto" />
+        </set>
+    </class>
+</hibernate-mapping>

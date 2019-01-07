@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-dic-2018 16:06:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.entidades.Rol" table="rol" catalog="teletrabajo" optimistic-lock="version">
+        <id name="idRol" type="java.lang.Integer">
+            <column name="idRol" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" unique="true" />
+        </property>
+        <set name="permisos" table="rolpermiso" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="idRol" not-null="true" />
+            </key>
+            <many-to-many entity-name="modelo.entidades.Permiso">
+                <column name="idPermiso" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="rolUsuarioProyectos" table="rol_usuario_proyecto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idRol" not-null="true" />
+            </key>
+            <one-to-many class="modelo.entidades.RolUsuarioProyecto" />
+        </set>
+    </class>
+</hibernate-mapping>

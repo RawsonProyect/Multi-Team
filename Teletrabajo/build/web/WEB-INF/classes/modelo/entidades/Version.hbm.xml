@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-dic-2018 16:06:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.entidades.Version" table="version" catalog="teletrabajo" optimistic-lock="version">
+        <id name="idVersion" type="java.lang.Integer">
+            <column name="idVersion" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="archivo" class="modelo.entidades.Archivo" fetch="select">
+            <column name="idArchivo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="modelo.entidades.Usuario" fetch="select">
+            <column name="idUsuario" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="19" not-null="true" />
+        </property>
+        <property name="path" type="string">
+            <column name="path" not-null="true" />
+        </property>
+        <property name="esFinal" type="java.lang.Boolean">
+            <column name="esFinal" />
+        </property>
+    </class>
+</hibernate-mapping>
